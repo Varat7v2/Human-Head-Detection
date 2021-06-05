@@ -1,9 +1,11 @@
 Some of the output results videos are below:
 
 Test Video 1 Output
+
 <img src="https://github.com/Varat7v2/Human-Head-Detection/blob/master/outputs/Test%20Video%202.gif" />
 
-Test Video 2 Outpur
+Test Video 2 Output
+
 <img src="https://github.com/Varat7v2/Human-Head-Detection/blob/master/outputs/Test%20Video%201.gif" />
 
 
