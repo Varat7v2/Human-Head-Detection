@@ -8,4 +8,4 @@ The test videos are taken from the following links.
 ### References
 [1] [London Walk from Oxford Street to Carnaby Street] (https://www.youtube.com/watch?v=NyLF8nHIquM&t=556s)
 
-[2] [HD CCTV Camera video 3MP 4MP iProx CCTV HDCCTVCameras.net retail store](https://www.youtube.com/watch?v=KMJS66jBtVQ)
+[2] [HD CCTV Camera video 3MP 4MP iProx CCTV HDCCTVCameras.net retail store] (https://www.youtube.com/watch?v=KMJS66jBtVQ)
