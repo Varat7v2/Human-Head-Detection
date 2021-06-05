@@ -1,13 +1,13 @@
 import sys
 import time
 import numpy as np
-import tensorflow as tf
+# import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import cv2
 
-class TensoflowHeadDector(object):
+class FROZEN_GRAPH_HEAD():
     def __init__(self, PATH_TO_CKPT):
-        """Tensorflow detector
-        """
         self.inference_list = []
         self.count = 0
 
@@ -26,8 +26,54 @@ class TensoflowHeadDector(object):
             self.sess = tf.Session(graph=self.detection_graph, config=config)
             self.windowNotSet = True
 
+    def draw_bounding_box(self, image, scores, boxes, classes, im_width, im_height):
+        boxes = np.squeeze(boxes)
+        scores = np.squeeze(scores)
+        classes = np.squeeze(classes).astype(np.int32)
 
-    def run(self, image):
+        heads = list()
+        idx = 1
+
+        for score, box, name in zip(scores, boxes, classes):
+            if name == 1 and score > 0.6:
+                # ymin, xmin, ymax, xmax = box
+                left = int((box[1])*im_width)
+                top = int((box[0])*im_height)
+                right = int((box[3])*im_width)
+                bottom = int((box[2])*im_height)
+
+                cropped_head = np.array(image[top:bottom, left:right])
+
+                width = right - left
+                height = bottom - top
+                bottom_mid = (left + int(width / 2), top + height)
+                confidence = score
+                label = name
+
+                mydict = {
+                    "head_id": idx,
+                    "width": width,
+                    "height": height,
+                    "cropped":cropped_head,
+                    "left": left,
+                    "right": right,
+                    "top": top,
+                    "bottom": bottom,
+                    "confidence": confidence,
+                    "label": None,
+                    "bottom_mid": bottom_mid,
+                    "model_type": 'FROZEN_GRAPH'
+                    }
+                heads.append(mydict)
+                idx += 1
+
+                cv2.rectangle(image, (left, top), (right, bottom), (0, 255, 0), 2, 8)
+                cv2.putText(image, 'score: {:.2f}%'.format(score), (left-5, top-5), 0, 0.55, (0,255,255),2)
+
+        return image, heads
+
+
+    def run(self, image, im_width, im_height):
         """image: bgr image
         return (boxes, scores, classes, num_detections)
         """
@@ -56,4 +102,9 @@ class TensoflowHeadDector(object):
         average_inference = sum(self.inference_list)/self.count
         # print('Average inference time: {}'.format(average_inference))
 
-        return (boxes, scores, classes, num_detections)
+        # return (boxes, scores, classes, num_detections)
+
+        # Draw bounding boxes on the image
+        image, heads = self.draw_bounding_box(image, scores, boxes, classes, im_width, im_height)
+
+        return image, heads
