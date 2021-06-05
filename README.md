@@ -1,10 +1,10 @@
 Some of the output results videos are below:
 
-Test Video 1 Output
+[Test Video 1 Output](https://www.youtube.com/watch?v=Q5en44y66w8)
 
 <img src="https://github.com/Varat7v2/Human-Head-Detection/blob/master/outputs/Test%20Video%202.gif" />
 
-Test Video 2 Output
+[Test Video 2 Output](https://www.youtube.com/watch?v=05zBvuf19fQ)
 
 <img src="https://github.com/Varat7v2/Human-Head-Detection/blob/master/outputs/Test%20Video%201.gif" />
 
